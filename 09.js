@@ -72,28 +72,27 @@ function createNewItem(title) {
 
 // function that accepts array1 and creates finalArray1
 function createFinalArray1(array) {
-  const resultArray = [];
-  array.forEach(el => resultArray.push(createNewItem(el.title)));
-  return resultArray;
+  return array.map(el => createNewItem(el.title));
 }
 
 // function that accepts array1 and array2 and creates finalArray2
 function createFinalArray2(array1, array2) {
-  const resultArray = new Array(5);
+  const arrLength = array2.arrLength;
+  const resultArray = new Array(arrLength);
   const titles1 = array1.map(el => el.title);
   const titles2 = array2.map(el => el.title);
   const notCrossedTitles = [];
 
   // check if the title is present in both source arrays and if it's true then put it in the right place in the result array
   // otherwise push it to the temporary storage(notCrossedTitles)
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < arrLength; i++) {
     const ind1 = titles1.indexOf(titles2[i]);
     if (ind1 !== -1) resultArray[ind1] = createNewItem(titles2[i]);
     else notCrossedTitles.push(titles2[i]);
   }
 
   // fill in all empty values in the result array with the rest of titles stored in notCrossedTitles
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < arrLength; i++) {
     if (!resultArray[i]) {
       const nextTitle = notCrossedTitles.pop();
       resultArray[i] = createNewItem(nextTitle);
